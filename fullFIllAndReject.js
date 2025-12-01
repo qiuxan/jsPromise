@@ -6,7 +6,7 @@ function fullFillAndReject(name, onFulfilled, onRejected) {
     );
 
     setTimeout(() => {
-        if (Math.random() <= 0.1) {
+        if (Math.random() <= 0.3) {
             onFulfilled(`${name}, I will help you!`);
         } else {
             onRejected(`${name}, I am very busy, Maybe next time!`);
@@ -14,12 +14,50 @@ function fullFillAndReject(name, onFulfilled, onRejected) {
     }, 2000);
 }
 
+// Callback hell: deeply nested callbacks for each person
 fullFillAndReject(
     "Alice",
     (message) => {
-        console.log("Fulfilled: " , {message});
+        console.log("Fulfilled:", { message });
     },
     (message) => {
-        console.log("Rejected: " , {message});
+        console.log("Rejected:", { message });
+        fullFillAndReject(
+            "Bob",
+            (message) => {
+                console.log("Fulfilled:", { message });
+            },
+            (message) => {
+                console.log("Rejected:", { message });
+                fullFillAndReject(
+                    "Charlie",
+                    (message) => {
+                        console.log("Fulfilled:", { message });
+                    },
+                    (message) => {
+                        console.log("Rejected:", { message });
+                        fullFillAndReject(
+                            "Diana",
+                            (message) => {
+                                console.log("Fulfilled:", { message });
+                            },
+                            (message) => {
+                                console.log("Rejected:", { message });
+                                fullFillAndReject(
+                                    "Eve",
+                                    (message) => {
+                                        console.log("Fulfilled:", { message });
+                                    },
+                                    (message) => {
+                                        console.log("Rejected:", { message });
+                                        console.log("No one was able to help with the project.");
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 );
