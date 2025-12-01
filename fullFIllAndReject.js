@@ -1,0 +1,25 @@
+function fullFillAndReject(name, onFulfilled, onRejected) {
+    console.log(
+        `Hello, ${name}! I want to discuss something important with you. You could either 
+        fulfill my request by agreeing to help me with my project, or reject it if you're too busy.
+        `
+    );
+
+    setTimeout(() => {
+        if (Math.random() <= 0.1) {
+            onFulfilled(`${name}, I will help you!`);
+        } else {
+            onRejected(`${name}, I am very busy, Maybe next time!`);
+        }
+    }, 2000);
+}
+
+fullFillAndReject(
+    "Alice",
+    (message) => {
+        console.log("Fulfilled: " , {message});
+    },
+    (message) => {
+        console.log("Rejected: " , {message});
+    }
+);
