@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container"></div>
+    <p class="imgContainer"></p>
+    
+</body>
+<script>
+    // given an image url, return a promise that resolves to an HTMLImageElement
+    // if successful, the promise should resolve with the image dom element
+    // if the image fails to load, the promise should reject and give an error message
+    
+    function createImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.onload = () => resolve(img); 
+            img.onerror = (e) => reject(e);
+        });
+    }
+
+    const url = 'https://cdn.britannica.com/16/234216-050-C66F8665/beagle-hound-dog.jpg';
+    createImage(url)
+        .then(img => {
+            const p = document.querySelector('.imgContainer');
+            p.innerHTML = `${img.width} x ${img.height}`;
+        })
+        .catch(err => {
+            console.error('Image failed to load', err);
+        });
+
+    createImage(url)
+        .then(img => {
+            const container = document.querySelector('.container');
+            container.appendChild(img);
+        })
+        .catch(err => {
+            console.error('Image failed to load', err);
+        });
+</script>
+</html>
