@@ -1,5 +1,5 @@
 new Promise((resolve, reject) => {
     reject(new Error("Something went wrong"));
-}).then(null, (error) => {
-    console.log("Caught error:", {error});
+}).catch(error => {
+    console.error("Caught an error:", error.message);
 });
